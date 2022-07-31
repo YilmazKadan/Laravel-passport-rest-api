@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\RegisterRequest;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -33,6 +35,22 @@ class AuthController extends Controller
 
     public function  user(){
         return Auth::user();
+    }
+
+
+    public function register(RegisterRequest $request){
+        try{
+            $user = User::create([
+                'first_name' => $request->first_name,
+                'last_name' => $request->last_name,
+                'email' => $request->email,
+                'password' => Hash::make($request->first_name)
+            ]);
+        }catch(\Exception $ex){
+            return response([
+                'message' => $ex->getMessage()
+            ],400);
+        }
     }
 }
 
