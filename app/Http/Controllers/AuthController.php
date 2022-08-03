@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\RegisterRequest;
+use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -44,13 +45,18 @@ class AuthController extends Controller
                 'first_name' => $request->first_name,
                 'last_name' => $request->last_name,
                 'email' => $request->email,
-                'password' => Hash::make($request->first_name)
+                'password' => \Hash::make($request->first_name)
             ]);
-        }catch(\Exception $ex){
+        }catch(\Throwable $ex){
             return response([
                 'message' => $ex->getMessage()
             ],400);
         }
+
+        return response([
+            'message' => 'The record was created successfully',
+            'user' => $user
+        ],200);
     }
 }
 
