@@ -16,20 +16,20 @@ class AuthController extends Controller
                 /** @var  $user */
                 $user = Auth::user();
                 $token = $user->createToken('app')->accessToken;
-                return response([
+                return response()->json([
                     'message' => 'success',
                     'token' => $token,
                     'user' => $user
                 ]);
             }
         }catch(\Exception $ex){
-            return response([
+            return response()->json([
                 'message' => $ex->getMessage()
             ],400);
         }
 
 
-        return response([
+        return response()->json([
             'message' => 'Invalid username or password'
         ], 401);
     }
@@ -48,12 +48,12 @@ class AuthController extends Controller
                 'password' => \Hash::make($request->first_name)
             ]);
         }catch(\Throwable $ex){
-            return response([
+            return response()->json([
                 'message' => $ex->getMessage()
             ],400);
         }
 
-        return response([
+        return response()->json([
             'message' => 'The record was created successfully',
             'user' => $user
         ],200);
