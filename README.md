@@ -5,7 +5,13 @@ Bu projede Laravel ve Laravel'in Passport paketini kullanarak mobil veya farklı
 ## Neler var
 
 Proje içerisinde kullanıcı oluşturma, kullanıcı bilgisine erişme, şifremi unuttum maili yollama ve token ile şifre sıfırlama vb. özellikler bulunmaktadır.
-
+### İçerisinde bulunan endpointler
+`Route::post("login","AuthController@login");
+Route::post("register","AuthController@register");
+Route::post("forgot","ForgotController@forgot");
+Route::post("reset","ForgotController@reset");
+Route::get("/user","AuthController@user")->middleware("auth:api");
+` 
 ## Proje kurulumu
 Projeyi elde ettiken sonra `composer install` komutu ile tüm bağımlılıkları yüklüyoruz.
 `php artisan key:generate` komutu ile uygulama anahtarı oluşturulmalıdır.
